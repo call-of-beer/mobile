@@ -1,4 +1,4 @@
-package com.example.callogbeer
+package call.ofbeer
 
 import org.junit.Test
 
