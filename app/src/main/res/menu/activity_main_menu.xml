@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Start"/>
+
+    <item
+        android:id="@+id/nav_group"
+        android:icon="@drawable/ic_group_black_24dp"
+        android:title="Grupy">
+
+    </item>
+
+    <item
+        android:id="@+id/nav_testing"
+        android:icon="@drawable/ic_local_drink_black_24dp"
+        android:title="Degustacje">
+
+    </item>
+
+    <item
+        android:id="@+id/nav_account"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:title="Konto">
+
+    </item>
+
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_directions_run_black_24dp"
+        android:title="Wyloguj">
+
+    </item>
+    </group>
+</menu>

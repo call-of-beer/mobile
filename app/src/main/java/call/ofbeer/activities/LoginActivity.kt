@@ -2,22 +2,26 @@ package call.ofbeer.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.telecom.ConnectionRequest
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import call.ofbeer.R
-import call.ofbeer.api.LoginResponse
-import call.ofbeer.api.RetrofitClient
-import call.ofbeer.api.SessionManager
-import call.ofbeer.api.Validation
+import call.ofbeer.api.*
 import call.ofbeer.requests.LoginRequest
 import kotlinx.android.synthetic.main.activity_login.*
-import retrofit2.Call
+import kotlinx.coroutines.*
 import retrofit2.Callback
+import retrofit2.Call
 import retrofit2.Response
+import java.net.SocketTimeoutException
 
 class LoginActivity : AppCompatActivity() {
 
     lateinit var session: SessionManager
+    val TAG = "LoginActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +63,8 @@ class LoginActivity : AppCompatActivity() {
                 input_password.requestFocus()
                 return@setOnClickListener
             }
+
+
 
             RetrofitClient.instance.login( LoginRequest(email, password))
                 .enqueue(object: Callback<LoginResponse> {

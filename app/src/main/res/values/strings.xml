@@ -1,22 +1,25 @@
 <resources>
     <string name="app_name">Call of beer!</string>
-    <string name="login">Login</string>
-    <string name="forget_password">Forgot password?</string>
-    <string name="submit">Submit</string>
-    <string name="register">Register</string>
+    <string name="login">Logowanie</string>
+    <string name="forget_password">Zapomniałeś hasła?</string>
+    <string name="submit">Wyślij</string>
+    <string name="register">Rejestracja</string>
     <string name="email">email</string>
-    <string name="password">password</string>
-    <string name="pass_conf">password confirmation</string>
-    <string name="have_acc">Already have account?</string>
-    <string name="dont_have_acc">Do not have account?</string>
-    <string name="signup">Sign up</string>
-    <string name="signin">Sign in</string>
-    <string name="resetpassTitle">Reset your password</string>
+    <string name="password">hasło</string>
+    <string name="pass_conf">potwierdź hasło</string>
+    <string name="have_acc">Masz już konto?</string>
+    <string name="dont_have_acc">Nie masz jeszcze konta?</string>
+    <string name="signup">Rejestracja</string>
+    <string name="signin">Logowanie</string>
+    <string name="resetpassTitle">Resetuj hasło</string>
     <string name="enterEmail">Enter your email, where we send your password reset code.</string>
     <string name="enterResetCode">To reset your password please input here 6 numbers, which we send you on email.</string>
     <string name="reset_code">reset code</string>
     <string name="input_your_new_password">Input your new password</string>
-    <string name="firstname">name</string>
-    <string name="surname">surname</string>
-    <string name="logout">Logout</string>
+    <string name="firstname">imię</string>
+    <string name="surname">nazwisko</string>
+    <string name="logout">Wyloguj</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

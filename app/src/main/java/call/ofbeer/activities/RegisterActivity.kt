@@ -2,6 +2,8 @@ package call.ofbeer.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import call.ofbeer.R
@@ -10,6 +12,9 @@ import call.ofbeer.api.RetrofitClient
 import call.ofbeer.api.Validation
 import call.ofbeer.requests.RegisterRequest
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -78,9 +83,6 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-
-
-
             RetrofitClient.instance.register( RegisterRequest(email, password, passwordConfirmation, firstname, surname))
                 .enqueue(object: Callback<RegisterResponse> {
                     override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
@@ -88,8 +90,12 @@ class RegisterActivity : AppCompatActivity() {
                     }
 
                     override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
-                        if (response.code() == 200)
-                            Toast.makeText(applicationContext, "Register successful. Check your email and confirm your account", Toast.LENGTH_LONG).show()
+                        if (response.code() == 200){
+                            Toast.makeText(applicationContext, "Register successful. Now you can login.", Toast.LENGTH_LONG).show()
+
+                            val i = Intent(applicationContext, LoginActivity::class.java)
+                            applicationContext.startActivity(i)
+                            }
                         else
                             Toast.makeText(applicationContext, "Registration failed. Please, make sure you put in a correct credential and you already have not account with this email.", Toast.LENGTH_LONG).show()
 
@@ -100,11 +106,11 @@ class RegisterActivity : AppCompatActivity() {
 
 
 
-            btn_signIn.setOnClickListener {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-            }
+        }
 
+        btn_signIn.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 

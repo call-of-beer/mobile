@@ -1,53 +1,63 @@
 package call.ofbeer.activities
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.R.id.toggle
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import call.ofbeer.R
-import call.ofbeer.api.LogoutResponse
-import call.ofbeer.api.RegisterResponse
-import call.ofbeer.api.RetrofitClient
 import call.ofbeer.api.SessionManager
-import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(){
 
 
     lateinit var session: SessionManager
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private val fragmentManager = supportFragmentManager
+    lateinit var drawerLayout: DrawerLayout
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-    btn_logout.setOnClickListener{
-
         session = SessionManager(applicationContext)
 
-        RetrofitClient.instance.logout(session.TOKEN)
-            .enqueue(object: Callback<LogoutResponse> {
-                override fun onFailure(call: Call<LogoutResponse>, t: Throwable) {
-                    Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
-                }
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
-                override fun onResponse(call: Call<LogoutResponse>, response: Response<LogoutResponse>) {
-                    if (response.code() == 200){
-                        Toast.makeText(applicationContext, "You were logout", Toast.LENGTH_LONG).show()
-                        val intent = Intent(applicationContext, LoginActivity::class.java)
-                        startActivity(intent)
-                    }
-                    else
-                        Toast.makeText(applicationContext, "Something went wrong.", Toast.LENGTH_LONG).show()
+        drawerLayout = findViewById(R.id.drawer_layout)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        val navController  = findNavController(R.id.nav_host_fragment)
 
-                }
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.nav_home, R.id.nav_group, R.id.nav_testing, R.id.nav_account
+            ), drawerLayout
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
 
-            })
+        //navView.setNavigationItemSelectedListener(this)
 
+        navView.menu.findItem(R.id.logout).setOnMenuItemClickListener {
+            session.Logout()
+            true
+        }
 
     }
-}
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+
 }

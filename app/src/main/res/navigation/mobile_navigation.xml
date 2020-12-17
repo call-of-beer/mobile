@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="call.ofbeer.fragments.HomeFragment"
+        android:label="Start"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_HomeFragment_to_GroupFragment"
+            app:destination="@id/nav_group" />
+
+        <action
+            android:id="@+id/action_HomeFragment_to_TestingFragment"
+            app:destination="@id/nav_testing" />
+
+        <action
+            android:id="@+id/action_HomeFragment_to_AccountFragment"
+            app:destination="@id/nav_account" />
+
+        <action
+            android:id="@+id/action_HomeFragment_to_BeerFragment"
+            app:destination="@id/nav_beer_list" />
+
+
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_group"
+        android:name="call.ofbeer.fragments.GroupFragment"
+        android:label="Grupy"
+        tools:layout="@layout/fragment_groups" />
+
+    <fragment
+        android:id="@+id/nav_testing"
+        android:name="call.ofbeer.fragments.TestingFragment"
+        android:label="Degustacje"
+        tools:layout="@layout/fragment_testing" />
+
+    <fragment
+        android:id="@+id/nav_account"
+        android:name="call.ofbeer.fragments.AccountFragment"
+        android:label="Konto"
+        tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/nav_beer_list"
+        android:name="call.ofbeer.fragments.BeerFragment"
+        android:label="Baza piw"
+        tools:layout="@layout/fragment_beer_list"/>
+
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="call.ofbeer.fragments.SearchFragment"
+        android:label="Wyszukiwarka"
+        tools:layout="@layout/fragment_search_list"
+        >
+
+        <action
+            android:id="@+id/action_SearchFragment_to_BeerFragment"
+            app:destination="@id/nav_home" />
+
+    </fragment>
+
+
+</navigation>
