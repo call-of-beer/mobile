@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import call.ofbeer.R
 import call.ofbeer.api.SessionManager
 import call.ofbeer.models.Beer
-import kotlinx.android.synthetic.main.fragment_beer.view.*
+import kotlinx.android.synthetic.main.fragment_beer_item.view.*
 
 class SearchAdapter(var context: Context, var beers: List<Beer> = arrayListOf()) :
     RecyclerView.Adapter<SearchAdapter.ViewHolder>(){

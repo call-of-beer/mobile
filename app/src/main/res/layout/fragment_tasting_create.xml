@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.TastingSetNameFragment"
+    android:background="?android:windowBackground">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_margin="50dp"
+        android:textSize="30dp"
+        android:text="Wszystko gotowe! Możesz rozpocząć degustację!" />
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:text="Degustuj"
+        android:textSize="20sp"
+        android:id="@+id/start_tasting_button"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="40dp"
+        android:text="Wróć do strony głównej"
+        android:textSize="20sp"
+        android:id="@+id/backToHomeFragment"/>
+
+</FrameLayout>

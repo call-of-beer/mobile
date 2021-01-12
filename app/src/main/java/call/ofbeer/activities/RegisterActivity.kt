@@ -91,13 +91,13 @@ class RegisterActivity : AppCompatActivity() {
 
                     override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
                         if (response.code() == 200){
-                            Toast.makeText(applicationContext, "Register successful. Now you can login.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, "Pomyślnie zarejestrowano. Możesz się teraz zalogować.", Toast.LENGTH_LONG).show()
 
                             val i = Intent(applicationContext, LoginActivity::class.java)
                             applicationContext.startActivity(i)
                             }
                         else
-                            Toast.makeText(applicationContext, "Registration failed. Please, make sure you put in a correct credential and you already have not account with this email.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, "Rejestracja nie powiodła się. Upewnij się, że wprowadziłeś poprawne dane oraz czy nie posiadasz już konta zarejestrowanego na podany email", Toast.LENGTH_LONG).show()
 
                     }
 

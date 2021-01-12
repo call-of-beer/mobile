@@ -86,7 +86,7 @@ class AccountEditFragment : Fragment() {
                         response: Response<UserResponse>
                     ) {
                         if(response.code()==200){
-                            Toast.makeText(requireContext(), "You edited your account!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Twoje konto zostało uaktualnione!", Toast.LENGTH_SHORT).show()
                         }
                         else
                             Toast.makeText(requireContext(), response.code().toString(), Toast.LENGTH_SHORT).show()

@@ -9,6 +9,17 @@ data class Beer (
     val alcoholVolume:String,
     val country:String,
     val description:String,
-    @SerializedName("type_id")
-    val typeId: Int
+    @SerializedName("type_beer_id")
+    val typeId: Int,
+    @SerializedName("user_id")
+    val userId: Int,
+    val avgAroma: Float,
+    val avgTaste: Float,
+    val avgColor: Float,
+    val avgBitterness: Float,
+    val avgTexture: Float,
+    val overall: Float,
+    @SerializedName("tasting_id")
+    val tastingId: Int
+
 )

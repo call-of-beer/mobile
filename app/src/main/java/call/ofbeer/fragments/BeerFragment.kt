@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import call.ofbeer.R
 import call.ofbeer.adapters.BeerAdapter
+import call.ofbeer.api.BeerResponse
 import call.ofbeer.api.RetrofitClient
 import call.ofbeer.api.SessionManager
 import call.ofbeer.models.Beer
@@ -51,9 +52,9 @@ class BeerFragment : Fragment() {
 
             session.searchBeer(beerName)
             val fragmentTransaction = fragmentManager?.beginTransaction()
-            fragmentTransaction?.replace(R.id.nav_host_fragment, SearchFragment())
-            fragmentTransaction?.addToBackStack(null)
-            fragmentTransaction?.commit()
+            ?.replace(R.id.nav_host_fragment, SearchFragment())
+            ?.addToBackStack(null)
+            ?.commit()
         }
 
     }
@@ -63,14 +64,16 @@ class BeerFragment : Fragment() {
         session = SessionManager(requireContext())
 
         RetrofitClient.instance.getAllBeers()
-            .enqueue(object : retrofit2.Callback<List<Beer>> {
-                override fun onFailure(call: Call<List<Beer>>, t: Throwable) {
+            .enqueue(object : retrofit2.Callback<BeerResponse> {
+                override fun onFailure(call: Call<BeerResponse>, t: Throwable) {
                     Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                 }
 
-                override fun onResponse(call: Call<List<Beer>>, response: Response<List<Beer>>) {
+                override fun onResponse(call: Call<BeerResponse>, response: Response<BeerResponse>) {
                     if (response.code() == 200) {
-                        beer = response.body()!!
+
+
+                        beer = response.body()?.result!!
                         beerAdapter = BeerAdapter(requireContext(), beer)
 
                         listOfBeers.adapter = beerAdapter

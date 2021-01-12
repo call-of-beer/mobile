@@ -22,7 +22,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginBottom="50dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -62,30 +63,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="60dp"
-                android:layout_marginBottom="60dp"
-                android:baselineAligned="false"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/data"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:text="Twoje dane"
-                    android:textSize="22sp"/>
-
-                <Button
-                    android:id="@+id/edit_acc"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:text="Edycja konta"
-                    android:textSize="22sp"/>
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

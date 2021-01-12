@@ -20,11 +20,7 @@ class SplashScreen : AppCompatActivity() {
         Handler().postDelayed({
 
             if(SessionManager.getInstance(applicationContext).isLoggedIn()){
-                val email = SessionManager.getInstance(applicationContext).EMAIL
-                if(email=="admin") {
-                    startActivity(Intent(this, AdminActivity::class.java))
-                    finish()
-                }
+
                 if(session.isLoggedIn()) {
                     startActivity(Intent(this,MainActivity::class.java))
                     finish()

@@ -35,30 +35,6 @@ class SearchFragment: Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
-        /*var toolbar :Toolbar = (activity as MainActivity?)!!.findViewById(R.id.toolbar)
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        //val toolbar: Toolbar = view.findViewById(R.id.toolbar)
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        (activity as AppCompatActivity).supportActionBar?.apply {
-            title = "Wyniki wyszukiwania"
-            // show back button on toolbar
-            // on back button press, it will navigate to parent fragment
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
-            toolbar.setNavigationOnClickListener { (activity as MainActivity?)!!.onBackPressed()
-                toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp)}
-
-                 toolbar.setNavigationOnClickListener {
-            val navController = Navigation.findNavController(
-                (activity as MainActivity?)!!,
-                R.id.nav_host_fragment
-            )
-            navController.navigate(R.id.action_SearchFragment_to_BeerFragment)
-
-        }*/
-
-
         listOfBeersSearch.layoutManager = LinearLayoutManager(requireContext())
 
         fetchBeers()

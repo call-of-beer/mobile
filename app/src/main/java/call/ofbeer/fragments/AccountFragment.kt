@@ -39,44 +39,8 @@ class AccountFragment :Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         session = SessionManager(requireContext())
 
-        data.setOnClickListener{}
-
-        logout.setOnClickListener{
-            session.Logout()
-            Toast.makeText(activity, "You have been logout", Toast.LENGTH_SHORT).show()
-        }
-
-        edit_acc.setOnClickListener{
-            val fragmentTransaction = fragmentManager?.beginTransaction()
-            fragmentTransaction?.replace(R.id.nav_host_fragment, AccountEditFragment())
-            fragmentTransaction?.addToBackStack(null)
-            fragmentTransaction?.commit()
-        }
-
-
 
         user_name.text = "Witaj " + session.userName
-
-        data.setOnClickListener {
-
-            val dialogBuilder = AlertDialog.Builder(context)
-            with(dialogBuilder)
-            {
-                setTitle("User details")
-                setMessage(
-                    "Name: " + session.userName + System.lineSeparator() +
-                            "Surname: " + session.userSurname + System.lineSeparator() +
-                            "Email: " + session.userEmail + System.lineSeparator()
-                )
-            }
-                .setCancelable(false)
-                .setPositiveButton("Ok") { dialog, id ->
-                    dialog.dismiss()
-                }
-            val alert = dialogBuilder.create()
-            alert.show()
-        }
-
 
         deleteAcc.setOnClickListener {
             //see delete alert and confirm or dismiss
@@ -117,8 +81,4 @@ class AccountFragment :Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-
-    }
 }

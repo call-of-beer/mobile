@@ -15,7 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import call.ofbeer.R
 import call.ofbeer.activities.LoginActivity
-import call.ofbeer.activities.TestingActivity
+import call.ofbeer.activities.TastingActivity
 import call.ofbeer.api.RetrofitClient
 import call.ofbeer.api.SessionManager
 import call.ofbeer.api.UserResponse
@@ -47,30 +47,23 @@ class HomeFragment : Fragment() {
 
         (activity as? AppCompatActivity)?.supportActionBar?.title = "Start"
 
+        val fragmentTransaction = fragmentManager?.beginTransaction()
+
         view.findViewById<View>(R.id.beersCollection).setOnClickListener{
-            val fragmentTransaction = fragmentManager?.beginTransaction()
-            fragmentTransaction!!.replace(R.id.nav_host_fragment, BeerFragment())
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
+            fragmentTransaction!!.replace(R.id.nav_host_fragment, BeerFragment()).addToBackStack(null).commit()
         }
 
         view.findViewById<View>(R.id.createTesting).setOnClickListener{
-            val i = Intent(requireContext(), TestingActivity::class.java)
+            val i = Intent(requireContext(), TastingActivity::class.java)
             requireContext().startActivity(i)
         }
 
         view.findViewById<View>(R.id.createGroup).setOnClickListener{
-            val fragmentTransaction = fragmentManager?.beginTransaction()
-            fragmentTransaction!!.replace(R.id.nav_host_fragment, AddGroupFragment())
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
+            fragmentTransaction!!.replace(R.id.nav_host_fragment, AddGroupFragment()).addToBackStack(null).commit()
         }
 
         view.findViewById<View>(R.id.seeStatistics).setOnClickListener{
-            val fragmentTransaction = fragmentManager?.beginTransaction()
-            fragmentTransaction!!.replace(R.id.nav_host_fragment, StatisticsFragment())
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
+            fragmentTransaction!!.replace(R.id.nav_host_fragment, StatisticsFragment()).addToBackStack(null).commit()
         }
 
 
@@ -83,7 +76,7 @@ class HomeFragment : Fragment() {
                         activity?.finish()
                     } else {
                         isFirstBackPressed = true
-                        Toast.makeText(requireContext(), "Press back again to exit", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Wciśnij ponownie by wyjść", Toast.LENGTH_SHORT).show()
                         Handler().postDelayed({
                             isFirstBackPressed = false
 
@@ -115,19 +108,18 @@ class HomeFragment : Fragment() {
 
                 override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
 
-                    if (response.body()?.error != null) {
+                    if (response.body()?.result?.error != null || response.code() == 403 || response.body()==null) {
                         session.Logout()
                         val i = Intent(requireContext(), LoginActivity::class.java)
                         startActivity(i)
-                        Toast.makeText(activity,"Your session expired. Please login to continue.", Toast.LENGTH_LONG).show()
-                    } else {
-                        session.getDetailOfUser(response.body()?.email!!)
-                        val email = session.EMAIL//response.body()?.email.toString()
-
-                        session.getUserEmail(response.body()?.email!!)
-                        session.getIdUser(response.body()?.id!!)
-                        session.getUserSurname(response.body()?.surname!!)
-                        session.getUserName(response.body()?.firstname!!)
+                        Toast.makeText(activity,"Twoja sesja wygasła. Zaloguj się ponownie by kontynuować.", Toast.LENGTH_LONG).show()
+                    }
+                    else {
+                        session.getDetailOfUser(response.body()?.result?.email!!)
+                        session.getUserEmail(response.body()?.result?.email!!)
+                        session.getIdUser(response.body()?.result?.id!!)
+                        session.getUserSurname(response.body()?.result?.surname!!)
+                        session.getUserName(response.body()?.result?.firstname!!)
 
                     }
                 }

@@ -13,7 +13,8 @@ data class User (val id:Int,
                  @SerializedName("created_at")
                  val createdAt: Date,
                  @SerializedName("updated_at")
-                 val updatedAt: Date
+                 val updatedAt: Date,
+                 val error: String
 
 
 )

@@ -7,30 +7,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.FragmentActivity
 import call.ofbeer.R
+import call.ofbeer.api.SessionManager
+import call.ofbeer.fragments.BeerSeeDetailsFragment
+import call.ofbeer.fragments.RateAddFragment
 
 
 //import call.ofbeer.fragments.BeerFragment.OnListFragmentInteractionListener
 import call.ofbeer.models.Beer
 
-import kotlinx.android.synthetic.main.fragment_beer.view.*
+import kotlinx.android.synthetic.main.fragment_beer_item.view.*
+import kotlinx.android.synthetic.main.fragment_tasting_details.view.*
 
-/**
- * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
- * specified [OnListFragmentInteractionListener].
- * TODO: Replace the implementation with code for your data type.
- */
 class BeerAdapter(var context: Context, var beers: List<Beer> = arrayListOf()) :
     RecyclerView.Adapter<BeerAdapter.ViewHolder>() {
 
+    lateinit var session: SessionManager
+    private var isVisible = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_beer, parent, false)
+            .inflate(R.layout.fragment_beer_item, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        if(isVisible){
+            holder.seeBtn.visibility = View.GONE
+        }else{
+            holder.seeBtn.visibility = View.VISIBLE
+        }
         holder.bindBeer(beers[position])
     }
 
@@ -39,33 +46,40 @@ class BeerAdapter(var context: Context, var beers: List<Beer> = arrayListOf()) :
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         var seeBtn = view.findViewById<Button>(R.id.btn_see)
+        var context: Context = itemView.context
+        var fragmentManager =
+            (view.context as FragmentActivity).supportFragmentManager //to handle context
 
         fun bindBeer(beer: Beer) {
 
+            session = SessionManager(context)
+
             seeBtn.setOnClickListener {
 
-                val dialogBuilder = AlertDialog.Builder(context)
-                with(dialogBuilder)
-                {
-                    setTitle("User details")
-                    setMessage(
-                        "Name: " + beer.name + System.lineSeparator() +
-                                "Alcohol Volume: " + beer.alcoholVolume + System.lineSeparator() +
-                                "Country: " + beer.country + System.lineSeparator() +
-                                "Desctription: " + beer.description + System.lineSeparator()
-                    )
-                }
-                    .setCancelable(false)
-                    .setPositiveButton("Ok") { dialog, id ->
-                        dialog.dismiss()
-                    }
-                val alert = dialogBuilder.create()
-                alert.show()
+                val fragmentTransaction = fragmentManager?.beginTransaction()
+                fragmentTransaction?.replace(R.id.nav_host_fragment, BeerSeeDetailsFragment())
+                fragmentTransaction?.addToBackStack(null)
+                fragmentTransaction?.commit()
+
+                session.getbeerName(beer.name)
+                session.getbeerAlcVolume(beer.alcoholVolume)
+                session.getaromaRate(beer.avgAroma)
+                session.getcolorRate(beer.avgColor)
+                session.gettasteRate(beer.avgTaste)
+                session.getbitternessRate(beer.avgBitterness)
+                session.gettextureRate(beer.avgTexture)
+                session.getbeerId(beer.id)
+                session.getbeerAlcVolume(beer.alcoholVolume)
             }
 
             itemView.main_info.text = beer.name
             itemView.add_info.text = beer.alcoholVolume
             itemView.more_info.text = beer.description
         }
+    }
+
+    fun setVisibility() {
+        isVisible = true
+        notifyDataSetChanged()
     }
 }

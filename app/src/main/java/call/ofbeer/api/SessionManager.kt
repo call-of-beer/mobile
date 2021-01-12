@@ -125,9 +125,20 @@ class SessionManager {
             return pref.getString("userName", null)
         }
 
-    fun getUserName(name:String?){
+    fun getUserName(userName:String?){
         editor.putBoolean(IS_LOGIN,true)
-        editor.putString("userName",name)
+        editor.putString("userName",userName)
+        editor.commit()
+    }
+
+    val beerAlcVolume :String?
+        get(){
+            return pref.getString("beerAlcVolume", null)
+        }
+
+    fun getbeerAlcVolume(name:String?){
+        editor.putBoolean(IS_LOGIN,true)
+        editor.putString("beerAlcVolume",beerAlcVolume)
         editor.commit()
     }
 
@@ -145,12 +156,195 @@ class SessionManager {
             return pref.getString("search", null)
         }
 
-    fun searchBeer(name:String?){
+    fun searchBeer(search:String?){
         editor.putBoolean(IS_LOGIN,true)
-        editor.putString("search",name)
+        editor.putString("search",search)
         editor.commit()
     }
 
+    val goupID :Int
+        get(){
+            return pref.getInt("goupID", 0)
+        }
+
+    fun getIdOfGroup(goupID :Int) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putInt("goupID", goupID)
+        editor.commit()
+    }
+
+    val groupName :String?
+        get(){
+            return pref.getString("groupName", null)
+        }
+
+    fun getNameOfGroup(groupName :String) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putString("groupName", groupName)
+        editor.commit()
+    }
+
+
+
+    val fragmentRedirect :Int
+        get(){
+            return pref.getInt("fragmentRedirect", 0)
+        }
+
+    fun getfragmentRedirect(fragmentRedirect :Int) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putInt("fragmentRedirect", fragmentRedirect)
+        editor.commit()
+    }
+
+
+
+    val differentOption :Int
+        get(){
+            return pref.getInt("differentOption", 0)
+        }
+
+    fun getdifferentOption(differentOption :Int) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putInt("differentOption", differentOption)
+        editor.commit()
+    }
+
+
+    val countryId :Int
+        get(){
+            return pref.getInt("countryId", 0)
+        }
+
+    fun getcountryId(countryId :Int) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putInt("countryId", countryId)
+        editor.commit()
+    }
+
+    val typeId :Int
+        get(){
+            return pref.getInt("typeId", 0)
+        }
+
+    fun gettypeId(typeId :Int) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putInt("typeId", typeId)
+        editor.commit()
+    }
+
+    val beerId :Int
+        get(){
+            return pref.getInt("beerId", 0)
+        }
+
+    fun getbeerId(beerId :Int) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putInt("beerId", beerId)
+        editor.commit()
+    }
+
+
+    val tastingName :String?
+        get(){
+            return pref.getString("tastingName", null)
+        }
+
+    fun gettastingName(tastingName :String) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putString("tastingName", tastingName)
+        editor.commit()
+    }
+
+
+    val tastingId :Int
+        get(){
+            return pref.getInt("tastingId", 0)
+        }
+
+    fun gettastingId(tastingId :Int) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putInt("tastingId", tastingId)
+        editor.commit()
+    }
+
+
+    val tastingDescription :String?
+        get(){
+            return pref.getString("tastingDescription", null)
+        }
+
+    fun gettastingDescription(tastingDescription :String) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putString("tastingDescription", tastingDescription)
+        editor.commit()
+    }
+
+    val beerName :String?
+        get(){
+            return pref.getString("beerName", null)
+        }
+
+    fun getbeerName(beerName :String) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putString("beerName", beerName)
+        editor.commit()
+    }
+
+    val aromaRate :Float
+        get(){
+            return pref.getFloat("aromaRate", 0F)
+        }
+
+    fun getaromaRate(aromaRate :Float) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putFloat("aromaRate", aromaRate)
+        editor.commit()
+    }
+
+    val colorRate :Float
+        get(){
+            return pref.getFloat("colorRate", 0F)
+        }
+
+    fun getcolorRate(colorRate :Float) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putFloat("colorRate", colorRate)
+        editor.commit()
+    }
+
+    val tasteRate :Float
+        get(){
+            return pref.getFloat("tasteRate", 0F)
+        }
+
+    fun gettasteRate(tasteRate :Float) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putFloat("tasteRate", tasteRate)
+        editor.commit()
+    }
+
+    val bitternessRate :Float
+        get(){
+            return pref.getFloat("bitternessRate", 0F)
+        }
+
+    fun getbitternessRate(bitternessRate :Float) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putFloat("bitternessRate", bitternessRate)
+        editor.commit()
+    }
+
+    val textureRate :Float
+        get(){
+            return pref.getFloat("textureRate", 0F)
+        }
+
+    fun gettextureRate(textureRate :Float) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putFloat("textureRate", textureRate)
+        editor.commit()
+    }
 
 
 

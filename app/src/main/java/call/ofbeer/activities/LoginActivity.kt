@@ -76,19 +76,17 @@ class LoginActivity : AppCompatActivity() {
 
                         if (response.code() == 200)
                         {
-                            Toast.makeText(applicationContext, "You are logged in", Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, "Zalogowany!", Toast.LENGTH_LONG).show()
                             session.createLoginSession(response.body()?.token!!)
 
                             session.getDetailOfUser(email)
                             val i = Intent (applicationContext, MainActivity::class.java)
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(i)
 
                         }
 
                         else
-                            Toast.makeText(applicationContext, "Something went wrong. Check your email and password and try again.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, "Coś poszło nie tak ;< Upewnij się, że wprowadziłeś poprawne dane logowania i spróbuj ponownie", Toast.LENGTH_LONG).show()
                     }
 
                 })

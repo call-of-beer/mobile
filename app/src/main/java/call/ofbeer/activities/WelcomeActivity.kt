@@ -2,6 +2,7 @@ package call.ofbeer.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import call.ofbeer.R
 import kotlinx.android.synthetic.main.activity_welcome.*
@@ -20,5 +21,9 @@ class WelcomeActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+
+
     }
+
+
 }

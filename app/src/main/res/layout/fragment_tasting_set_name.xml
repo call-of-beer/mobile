@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.TastingSetNameFragment"
+    android:background="?android:windowBackground">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_margin="50dp"
+        android:textSize="30dp"
+        android:text="Na początek nazwij degustację" />
+
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="200dp"
+    android:layout_marginLeft="40dp"
+    android:layout_marginRight="40dp"
+    android:textAlignment="center"
+    android:hint="nazwa"
+    android:id="@+id/name_of_tasting"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="270dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:textAlignment="center"
+        android:hint="krótki opis"
+        android:id="@+id/tastingDescription"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="40dp"
+        android:text="Dalej"
+        android:textSize="20sp"
+        android:id="@+id/go_next_button"/>
+
+
+
+
+</FrameLayout>

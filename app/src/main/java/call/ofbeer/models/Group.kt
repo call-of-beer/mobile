@@ -6,5 +6,5 @@ data class Group (
     val id:Int,
     val name: String,
     @SerializedName("moderator_id")
-    val moderatorId:String
+    val moderatorId:Int
 )
