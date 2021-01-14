@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import call.ofbeer.R
-import call.ofbeer.activities.MainActivity
 import call.ofbeer.activities.TastingActivity
 import call.ofbeer.adapters.UserInGroupAdapter
 import call.ofbeer.api.GroupInfoResponse
@@ -21,8 +20,6 @@ import call.ofbeer.api.RetrofitClient
 import call.ofbeer.api.SessionManager
 import call.ofbeer.api.SuccesfulResponse
 import call.ofbeer.models.User
-import kotlinx.android.synthetic.main.fragment_group_details.*
-import kotlinx.android.synthetic.main.fragment_groups.*
 import kotlinx.android.synthetic.main.fragment_manage_group.*
 import retrofit2.Call
 import retrofit2.Response
@@ -55,40 +52,39 @@ class ManageGroupFragment : Fragment() {
 
         fetchUsers()
 
-        if(session.fragmentRedirect==1)
-        {
+        if (session.fragmentRedirect == 1) {
             tastingHistory.visibility = View.GONE
             startTastingNow.visibility = View.VISIBLE
         }
 
-        addUser.setOnClickListener{
+        addUser.setOnClickListener {
 
-            if(session.fragmentRedirect==0) {
+            if (session.fragmentRedirect == 0) {
                 fragmentTransaction?.replace(R.id.nav_host_fragment, AddUserToGroupFragment())
-                ?.addToBackStack(null)
-                ?.commit()
+                    ?.addToBackStack(null)
+                    ?.commit()
             }
-            if(session.fragmentRedirect==1){
+            if (session.fragmentRedirect == 1) {
                 fragmentTransaction?.replace(R.id.fragmentTasting, AddUserToGroupFragment())
-                ?.addToBackStack(null)
-                ?.commit()
+                    ?.addToBackStack(null)
+                    ?.commit()
             }
         }
 
-        tastingHistory.setOnClickListener{
+        tastingHistory.setOnClickListener {
             fragmentTransaction?.replace(R.id.nav_host_fragment, HistoryOfTastingFragment())
-            ?.addToBackStack(null)
-            ?.commit()
+                ?.addToBackStack(null)
+                ?.commit()
         }
 
-        startTastingNow.setOnClickListener{
+        startTastingNow.setOnClickListener {
             val intent = Intent(activity, TastingActivity::class.java)
             startActivity(intent)
         }
 
-        deleteGroup.setOnClickListener{
+        deleteGroup.setOnClickListener {
             val dialogBuilder = AlertDialog.Builder(context)
-            dialogBuilder.setMessage("Jesteś pewny, że chcesz usunąć grupę " + session.groupName +"?")
+            dialogBuilder.setMessage("Jesteś pewny, że chcesz usunąć grupę " + session.groupName + "?")
                 .setCancelable(false)
                 .setPositiveButton("Usuń") { dialog, id ->
                     RetrofitClient.instance.deleteGroup(session.TOKEN, session.goupID)
@@ -106,14 +102,17 @@ class ManageGroupFragment : Fragment() {
                                     "Grupa została usunięta",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                fragmentTransaction?.replace(R.id.nav_host_fragment,GroupFragment())
-                                ?.addToBackStack(null)
-                                ?.commit()
+                                fragmentTransaction?.replace(
+                                    R.id.nav_host_fragment,
+                                    GroupFragment()
+                                )
+                                    ?.addToBackStack(null)
+                                    ?.commit()
                             }
 
                         })
                 }
-                .setNegativeButton("Anuluj"){dialog, id->
+                .setNegativeButton("Anuluj") { dialog, id ->
                     dialog.dismiss()
                 }
             val alert = dialogBuilder.create()
@@ -124,36 +123,42 @@ class ManageGroupFragment : Fragment() {
         }
 
         requireActivity().onBackPressedDispatcher
-            .addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
 
-                    if(session.fragmentRedirect==0) {
-                        fragmentTransaction?.replace(R.id.nav_host_fragment, GroupToManageFragment())
-                        ?.addToBackStack(null)
-                        ?.commit()
+                    if (session.fragmentRedirect == 0) {
+                        fragmentTransaction?.replace(
+                            R.id.nav_host_fragment,
+                            GroupToManageFragment()
+                        )
+                            ?.addToBackStack(null)
+                            ?.commit()
                     }
-                    if(session.fragmentRedirect==1){
-                        fragmentTransaction?.replace(R.id.fragmentTasting, TastingChooseGroupFragment())
-                        ?.addToBackStack(null)
-                        ?.commit()
+                    if (session.fragmentRedirect == 1) {
+                        fragmentTransaction?.replace(
+                            R.id.fragmentTasting,
+                            TastingChooseGroupFragment()
+                        )
+                            ?.addToBackStack(null)
+                            ?.commit()
 
                     }
                 }
-                })
-
+            })
 
 
     }
 
-    private fun fetchUsers(){
+    private fun fetchUsers() {
         session = SessionManager(requireContext())
         RetrofitClient.instance.getGroupInfo(session.TOKEN, session.goupID)
-            .enqueue(object : retrofit2.Callback<GroupInfoResponse>{
+            .enqueue(object : retrofit2.Callback<GroupInfoResponse> {
                 override fun onFailure(call: Call<GroupInfoResponse>, t: Throwable) {
                     Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                 }
 
-                override fun onResponse(call: Call<GroupInfoResponse>, response: Response<GroupInfoResponse>
+                override fun onResponse(
+                    call: Call<GroupInfoResponse>, response: Response<GroupInfoResponse>
                 ) {
                     if (response.code() == 200) {
                         user = response.body()?.result!!

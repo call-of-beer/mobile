@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import call.ofbeer.R
 import call.ofbeer.api.SessionManager
-import call.ofbeer.fragments.GroupFragment
 import call.ofbeer.fragments.TastingDetailsFragment
 import call.ofbeer.models.Tasting
 import kotlinx.android.synthetic.main.fragment_tasting_item.view.*
@@ -41,14 +40,14 @@ class TastingAdapter(var context: Context, var tastings: List<Tasting> = arrayLi
             (view.context as FragmentActivity).supportFragmentManager //to handle context
 
 
-        fun bindTasting(tastings : Tasting){
+        fun bindTasting(tastings: Tasting) {
 
             session = SessionManager(context)
 
             itemView.name_of_tasting.text = tastings.title
             itemView.add_info.text = tastings.description
 
-            seeBtn.setOnClickListener{
+            seeBtn.setOnClickListener {
                 session.getbeerName(tastings.beer.name)
                 session.getbeerAlcVolume(tastings.beer.alcoholVolume)
                 session.getaromaRate(tastings.beer.avgAroma)
@@ -60,10 +59,10 @@ class TastingAdapter(var context: Context, var tastings: List<Tasting> = arrayLi
                 session.getbeerId(tastings.beer.id)
 
 
-                val fragmentTransaction = fragmentManager?.beginTransaction()
-                fragmentTransaction?.replace(R.id.nav_host_fragment, TastingDetailsFragment())
-                fragmentTransaction?.addToBackStack(null)
-                fragmentTransaction?.commit()
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.nav_host_fragment, TastingDetailsFragment())
+                    .addToBackStack(null)
+                    .commit()
             }
 
 

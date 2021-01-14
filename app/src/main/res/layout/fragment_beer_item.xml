@@ -36,8 +36,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/ic_remove_red_eye_black_24dp"
-                android:text="See"
-                android:textSize="10sp"/>
+                android:fontFamily="@font/hanaleifill"
+                android:textSize="8sp"/>
 
 
 
@@ -64,14 +64,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:textSize="18sp"/>
+                    android:fontFamily="@font/hanaleifill"
+                    android:textSize="22sp"/>
                 <TextView
                     android:id="@+id/add_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:textSize="18sp"/>
+                    android:fontFamily="@font/hanaleifill"
+                    android:textSize="22sp"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/more_info"

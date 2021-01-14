@@ -6,9 +6,9 @@ data class CreateTastingRequest(
     val title: String,
     val description: String,
     @SerializedName("user_id")
-    val user:Int,
+    val user: Int,
     @SerializedName("group_id")
-    val groupId:Int,
+    val groupId: Int,
     @SerializedName("beer_id")
-    val beerId:Int
+    val beerId: Int
 )

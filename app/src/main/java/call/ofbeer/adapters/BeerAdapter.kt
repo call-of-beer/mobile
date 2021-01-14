@@ -1,24 +1,17 @@
 package call.ofbeer.adapters
 
-import android.app.AlertDialog
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.RecyclerView
 import call.ofbeer.R
 import call.ofbeer.api.SessionManager
 import call.ofbeer.fragments.BeerSeeDetailsFragment
-import call.ofbeer.fragments.RateAddFragment
-
-
-//import call.ofbeer.fragments.BeerFragment.OnListFragmentInteractionListener
 import call.ofbeer.models.Beer
-
 import kotlinx.android.synthetic.main.fragment_beer_item.view.*
-import kotlinx.android.synthetic.main.fragment_tasting_details.view.*
 
 class BeerAdapter(var context: Context, var beers: List<Beer> = arrayListOf()) :
     RecyclerView.Adapter<BeerAdapter.ViewHolder>() {
@@ -33,9 +26,9 @@ class BeerAdapter(var context: Context, var beers: List<Beer> = arrayListOf()) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(isVisible){
+        if (isVisible) {
             holder.seeBtn.visibility = View.GONE
-        }else{
+        } else {
             holder.seeBtn.visibility = View.VISIBLE
         }
         holder.bindBeer(beers[position])
@@ -45,7 +38,7 @@ class BeerAdapter(var context: Context, var beers: List<Beer> = arrayListOf()) :
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        var seeBtn = view.findViewById<Button>(R.id.btn_see)
+        var seeBtn: Button = view.findViewById(R.id.btn_see)
         var context: Context = itemView.context
         var fragmentManager =
             (view.context as FragmentActivity).supportFragmentManager //to handle context
@@ -56,10 +49,10 @@ class BeerAdapter(var context: Context, var beers: List<Beer> = arrayListOf()) :
 
             seeBtn.setOnClickListener {
 
-                val fragmentTransaction = fragmentManager?.beginTransaction()
-                fragmentTransaction?.replace(R.id.nav_host_fragment, BeerSeeDetailsFragment())
-                fragmentTransaction?.addToBackStack(null)
-                fragmentTransaction?.commit()
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.nav_host_fragment, BeerSeeDetailsFragment())
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
 
                 session.getbeerName(beer.name)
                 session.getbeerAlcVolume(beer.alcoholVolume)

@@ -6,40 +6,28 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import call.ofbeer.R
-import call.ofbeer.activities.LoginActivity
 import call.ofbeer.activities.TastingActivity
 import call.ofbeer.api.RetrofitClient
 import call.ofbeer.api.SessionManager
 import call.ofbeer.api.UserResponse
-import call.ofbeer.viewmodels.HomeViewModel
 import retrofit2.Call
 import retrofit2.Response
 
 class HomeFragment : Fragment() {
 
     lateinit var session: SessionManager
-    private lateinit var homeViewModel: HomeViewModel
     private var isFirstBackPressed = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        var root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.appName)
-        homeViewModel.textAppName.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-            return root
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,34 +37,39 @@ class HomeFragment : Fragment() {
 
         val fragmentTransaction = fragmentManager?.beginTransaction()
 
-        view.findViewById<View>(R.id.beersCollection).setOnClickListener{
-            fragmentTransaction!!.replace(R.id.nav_host_fragment, BeerFragment()).addToBackStack(null).commit()
+        session = SessionManager(requireContext())
+        session.getfragmentRedirect(0)
+
+        view.findViewById<View>(R.id.beersCollection).setOnClickListener {
+            fragmentTransaction!!.replace(R.id.nav_host_fragment, BeerFragment())
+                .addToBackStack(null).commit()
         }
 
-        view.findViewById<View>(R.id.createTesting).setOnClickListener{
+        view.findViewById<View>(R.id.createTesting).setOnClickListener {
             val i = Intent(requireContext(), TastingActivity::class.java)
             requireContext().startActivity(i)
         }
 
-        view.findViewById<View>(R.id.createGroup).setOnClickListener{
-            fragmentTransaction!!.replace(R.id.nav_host_fragment, AddGroupFragment()).addToBackStack(null).commit()
-        }
-
-        view.findViewById<View>(R.id.seeStatistics).setOnClickListener{
-            fragmentTransaction!!.replace(R.id.nav_host_fragment, StatisticsFragment()).addToBackStack(null).commit()
+        view.findViewById<View>(R.id.createGroup).setOnClickListener {
+            fragmentTransaction!!.replace(R.id.nav_host_fragment, AddGroupFragment())
+                .addToBackStack(null).commit()
         }
 
 
         //2 click back button
         requireActivity().onBackPressedDispatcher
-            .addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if(isFirstBackPressed){
+                    if (isFirstBackPressed) {
 
                         activity?.finish()
                     } else {
                         isFirstBackPressed = true
-                        Toast.makeText(requireContext(), "Wciśnij ponownie by wyjść", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Wciśnij ponownie by wyjść",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         Handler().postDelayed({
                             isFirstBackPressed = false
 
@@ -92,7 +85,7 @@ class HomeFragment : Fragment() {
 
         session = SessionManager(requireContext())
 
-        if(System.currentTimeMillis()>=session.ExpiredDate){
+        if (System.currentTimeMillis() >= session.ExpiredDate) {
 
             session.Logout()
         }
@@ -106,15 +99,15 @@ class HomeFragment : Fragment() {
                     Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
                 }
 
-                override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                override fun onResponse(
+                    call: Call<UserResponse>,
+                    response: Response<UserResponse>
+                ) {
 
-                    if (response.body()?.result?.error != null || response.code() == 403 || response.body()==null) {
+                    if (response.body()?.result?.error != null || response.code() == 403 || response.body() == null) {
                         session.Logout()
-                        val i = Intent(requireContext(), LoginActivity::class.java)
-                        startActivity(i)
-                        Toast.makeText(activity,"Twoja sesja wygasła. Zaloguj się ponownie by kontynuować.", Toast.LENGTH_LONG).show()
-                    }
-                    else {
+                        Toast.makeText(activity, "Zaloguj się by móc korzystać z aplikacji.", Toast.LENGTH_LONG).show()
+                    } else {
                         session.getDetailOfUser(response.body()?.result?.email!!)
                         session.getUserEmail(response.body()?.result?.email!!)
                         session.getIdUser(response.body()?.result?.id!!)

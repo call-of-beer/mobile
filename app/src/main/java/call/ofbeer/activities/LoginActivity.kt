@@ -2,41 +2,28 @@ package call.ofbeer.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.telecom.ConnectionRequest
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import call.ofbeer.R
-import call.ofbeer.api.*
+import call.ofbeer.api.LoginResponse
+import call.ofbeer.api.RetrofitClient
+import call.ofbeer.api.SessionManager
+import call.ofbeer.api.Validation
 import call.ofbeer.requests.LoginRequest
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.*
-import retrofit2.Callback
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
-import java.net.SocketTimeoutException
 
 class LoginActivity : AppCompatActivity() {
 
     lateinit var session: SessionManager
-    val TAG = "LoginActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         session = SessionManager(applicationContext)
-
-       /* if(session.isLoggedIn())
-        {
-            val i = Intent (applicationContext, MainActivity::class.java)
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(i)
-            finish()
-        }*/
 
         btn_login.setOnClickListener {
 
@@ -66,40 +53,40 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-            RetrofitClient.instance.login( LoginRequest(email, password))
-                .enqueue(object: Callback<LoginResponse> {
+            RetrofitClient.instance.login(LoginRequest(email, password))
+                .enqueue(object : Callback<LoginResponse> {
                     override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                         Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
                     }
 
-                    override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                    override fun onResponse(
+                        call: Call<LoginResponse>,
+                        response: Response<LoginResponse>
+                    ) {
 
-                        if (response.code() == 200)
-                        {
-                            Toast.makeText(applicationContext, "Zalogowany!", Toast.LENGTH_LONG).show()
+                        if (response.code() == 200) {
+                            Toast.makeText(applicationContext, "Zalogowany!", Toast.LENGTH_LONG)
+                                .show()
                             session.createLoginSession(response.body()?.token!!)
 
                             session.getDetailOfUser(email)
-                            val i = Intent (applicationContext, MainActivity::class.java)
+                            val i = Intent(applicationContext, MainActivity::class.java)
                             startActivity(i)
 
-                        }
-
-                        else
-                            Toast.makeText(applicationContext, "Coś poszło nie tak ;< Upewnij się, że wprowadziłeś poprawne dane logowania i spróbuj ponownie", Toast.LENGTH_LONG).show()
+                        } else
+                            Toast.makeText(
+                                applicationContext,
+                                "Coś poszło nie tak ;< Upewnij się, że wprowadziłeś poprawne dane logowania i spróbuj ponownie",
+                                Toast.LENGTH_LONG
+                            ).show()
                     }
 
                 })
 
         }
 
-        btn_signUp.setOnClickListener{
+        btn_signUp.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }
-
-        btn_forget_pass.setOnClickListener{
-            // val intent = Intent(this, ResetPasswordActivity::class.java)
             startActivity(intent)
         }
 

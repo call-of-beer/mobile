@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:windowBackground">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#ffffff">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
     <Button
         android:id="@+id/startTastng"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stwórz"
-        android:textSize="20sp"
+        android:fontFamily="@font/hanaleifill"
+        android:textSize="30sp"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:layout_gravity="center"/>
 
 
     <LinearLayout
@@ -25,14 +37,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/startTastng"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center">
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Twoje degustacje"
-            android:textSize="20sp"
+            android:fontFamily="@font/hanaleifill"
+            android:textSize="25sp"
+            android:layout_marginLeft="20dp"
             tools:layout_editor_absoluteX="65dp"
             tools:layout_editor_absoluteY="84dp" />
 
@@ -49,4 +64,6 @@
 
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

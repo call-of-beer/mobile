@@ -36,9 +36,13 @@ class RateAddFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         session = SessionManager(requireContext())
+        if(session.fragmentRedirect==1) {
+            tolbarRate.visibility = View.VISIBLE
+            tolbarRate.title = session.beerName
+        }
         val fragmentTransaction = fragmentManager?.beginTransaction()
 
-        send_ratings.setOnClickListener{
+        send_ratings.setOnClickListener {
 
             val aroma = aroma_rate.rating.toInt()
             val color = color_rate.rating.toInt()
@@ -47,10 +51,33 @@ class RateAddFragment : Fragment() {
             val texture = texture_rate.rating.toInt()
             val comment = comment.text.toString().trim()
 
-            if(comment.isNotEmpty())
-            {
-                RetrofitClient.instance.addComment(AddCommentRequest(comment), session.tastingId, session.TOKEN)
-                    .enqueue(object : retrofit2.Callback<SuccesfulResponse>{
+            requireActivity().onBackPressedDispatcher
+                .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                    override fun handleOnBackPressed() {
+
+                        if (session.fragmentRedirect == 0) {
+                            fragmentTransaction?.replace(
+                                R.id.nav_host_fragment,
+                                TastingDetailsFragment()
+                            )
+                                ?.addToBackStack(null)
+                                ?.commit()
+                        }
+                        if (session.fragmentRedirect == 1) {
+                            val intent = Intent(activity, MainActivity::class.java)
+                            startActivity(intent)
+                        }
+
+                    }
+                })
+
+            if (comment.isNotEmpty()) {
+                RetrofitClient.instance.addComment(
+                    AddCommentRequest(comment),
+                    session.tastingId,
+                    session.TOKEN
+                )
+                    .enqueue(object : retrofit2.Callback<SuccesfulResponse> {
                         override fun onFailure(call: Call<SuccesfulResponse>, t: Throwable) {
                             Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                         }
@@ -59,12 +86,10 @@ class RateAddFragment : Fragment() {
                             call: Call<SuccesfulResponse>,
                             response: Response<SuccesfulResponse>
                         ) {
-                            if(response.code()==200)
-                            {
-                            }
-                            else
-                            {
-                                Toast.makeText(context, "Coś poszło nie tak", Toast.LENGTH_SHORT).show()
+                            if (response.code() == 200) {
+                            } else {
+                                Toast.makeText(context, "Coś poszło nie tak", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         }
 
@@ -72,8 +97,9 @@ class RateAddFragment : Fragment() {
             }
 
 
-            RetrofitClient.instance.addRate(NewRateRequest(aroma, color, taste, bitterness, texture, session.userID), session.beerId, session.tastingId, session.TOKEN)
-                .enqueue(object : retrofit2.Callback<SuccesfulResponse>{
+            RetrofitClient.instance.addRate(
+                NewRateRequest(aroma,color,taste,bitterness,texture,session.userID), session.beerId, session.tastingId, session.TOKEN)
+                .enqueue(object : retrofit2.Callback<SuccesfulResponse> {
                     override fun onFailure(call: Call<SuccesfulResponse>, t: Throwable) {
                         Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                     }
@@ -82,47 +108,32 @@ class RateAddFragment : Fragment() {
                         call: Call<SuccesfulResponse>,
                         response: Response<SuccesfulResponse>
                     ) {
-                        if(response.code()==201)
-                        {
+                        if (response.code() == 201) {
                             Toast.makeText(context, "Ok", Toast.LENGTH_SHORT).show()
 
-                            if(session.fragmentRedirect==0) {
-                                fragmentTransaction?.replace(R.id.nav_host_fragment, TastingDetailsFragment())?.addToBackStack(null)
-                                ?.commit()
+                            if (session.fragmentRedirect == 0) {
+                                fragmentTransaction?.replace(
+                                    R.id.nav_host_fragment,
+                                    TastingDetailsFragment()
+                                )?.addToBackStack(null)
+                                    ?.commit()
                             }
-                            if(session.fragmentRedirect==1){
-                                fragmentTransaction?.replace(R.id.fragmentTasting, TastingDetailsFragment())?.addToBackStack(null)
-                                ?.commit()
+                            if (session.fragmentRedirect == 1) {
+                                fragmentTransaction?.replace(
+                                    R.id.fragmentTasting,
+                                    TastingDetailsFragment()
+                                )?.addToBackStack(null)
+                                    ?.commit()
 
                             }
 
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(context, "Coś poszło nie tak", Toast.LENGTH_SHORT).show()
                         }
                     }
 
                 })
 
-
-
-            requireActivity().onBackPressedDispatcher
-                .addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
-                    override fun handleOnBackPressed() {
-
-                        if(session.fragmentRedirect==0) {
-                            fragmentTransaction?.replace(R.id.nav_host_fragment, TastingDetailsFragment())
-                            ?.addToBackStack(null)
-                            ?.commit()
-                        }
-                        if(session.fragmentRedirect==1){
-                            val intent = Intent(activity, MainActivity::class.java)
-                            startActivity(intent)
-                        }
-
-                    }
-                })
 
         }
     }

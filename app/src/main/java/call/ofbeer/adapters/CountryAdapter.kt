@@ -9,7 +9,7 @@ import call.ofbeer.R
 import call.ofbeer.models.Country
 import kotlinx.android.synthetic.main.fragment_country_item.view.*
 
-class CountryAdapter (var context: Context, var countries: List<Country> = arrayListOf()) :
+class CountryAdapter(var context: Context, var countries: List<Country> = arrayListOf()) :
     RecyclerView.Adapter<CountryAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -25,9 +25,9 @@ class CountryAdapter (var context: Context, var countries: List<Country> = array
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bindCountry(country: Country){
+        fun bindCountry(country: Country) {
             itemView.main_info.text = country.name
         }
     }
 
-    }
+}

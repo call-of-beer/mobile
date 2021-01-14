@@ -29,22 +29,22 @@ class TastingCreateFragment : Fragment() {
 
         session = SessionManager(requireContext())
 
-        start_tasting_button.setOnClickListener{
+        start_tasting_button.setOnClickListener {
             val fragmentTransaction = fragmentManager?.beginTransaction()
             fragmentTransaction?.replace(R.id.fragmentTasting, RateAddFragment())
-            ?.addToBackStack(null)
-            ?.commit()
+                ?.addToBackStack(null)
+                ?.commit()
         }
 
         requireActivity().onBackPressedDispatcher
-            .addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     val intent = Intent(activity, MainActivity::class.java)
                     startActivity(intent)
                 }
             })
 
-        backToHomeFragment.setOnClickListener{
+        backToHomeFragment.setOnClickListener {
             val intent = Intent(activity, MainActivity::class.java)
             startActivity(intent)
         }

@@ -1,7 +1,9 @@
 package call.ofbeer.fragments
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -44,7 +46,7 @@ class BeerFragment : Fragment() {
             val beerName = searchValue.text.toString().trim()
 
 
-            if(beerName.isEmpty()) {
+            if (beerName.isEmpty()) {
                 searchValue.error = "Input name to search"
                 searchValue.requestFocus()
                 return@setOnClickListener
@@ -52,14 +54,14 @@ class BeerFragment : Fragment() {
 
             session.searchBeer(beerName)
             val fragmentTransaction = fragmentManager?.beginTransaction()
-            ?.replace(R.id.nav_host_fragment, SearchFragment())
-            ?.addToBackStack(null)
-            ?.commit()
+                ?.replace(R.id.nav_host_fragment, SearchFragment())
+                ?.addToBackStack(null)
+                ?.commit()
         }
 
     }
 
-    private fun fetchBeers(){
+    private fun fetchBeers() {
 
         session = SessionManager(requireContext())
 
@@ -69,7 +71,10 @@ class BeerFragment : Fragment() {
                     Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                 }
 
-                override fun onResponse(call: Call<BeerResponse>, response: Response<BeerResponse>) {
+                override fun onResponse(
+                    call: Call<BeerResponse>,
+                    response: Response<BeerResponse>
+                ) {
                     if (response.code() == 200) {
 
 
@@ -85,40 +90,5 @@ class BeerFragment : Fragment() {
             })
 
     }
-
-
-
-
-/*
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson
-     * [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: Beer?)
-    }
-*/
 
 }

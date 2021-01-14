@@ -19,15 +19,16 @@ class SplashScreen : AppCompatActivity() {
 
         Handler().postDelayed({
 
-            if(SessionManager.getInstance(applicationContext).isLoggedIn()){
+            if (SessionManager.getInstance(applicationContext).isLoggedIn()) {
 
-                if(session.isLoggedIn()) {
-                    startActivity(Intent(this,MainActivity::class.java))
+                if (session.isLoggedIn()) {
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
-                }}
-            else
-            {startActivity(Intent(this,WelcomeActivity::class.java))
-                finish()}
+                }
+            } else {
+                startActivity(Intent(this, WelcomeActivity::class.java))
+                finish()
+            }
         }, 3000)
 
 

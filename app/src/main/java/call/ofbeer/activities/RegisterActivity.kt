@@ -2,8 +2,6 @@ package call.ofbeer.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import call.ofbeer.R
@@ -12,9 +10,6 @@ import call.ofbeer.api.RetrofitClient
 import call.ofbeer.api.Validation
 import call.ofbeer.requests.RegisterRequest
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -83,27 +78,43 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            RetrofitClient.instance.register( RegisterRequest(email, password, passwordConfirmation, firstname, surname))
-                .enqueue(object: Callback<RegisterResponse> {
+            RetrofitClient.instance.register(
+                RegisterRequest(
+                    email,
+                    password,
+                    passwordConfirmation,
+                    firstname,
+                    surname
+                )
+            )
+                .enqueue(object : Callback<RegisterResponse> {
                     override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
                         Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
                     }
 
-                    override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
-                        if (response.code() == 200){
-                            Toast.makeText(applicationContext, "Pomyślnie zarejestrowano. Możesz się teraz zalogować.", Toast.LENGTH_LONG).show()
+                    override fun onResponse(
+                        call: Call<RegisterResponse>,
+                        response: Response<RegisterResponse>
+                    ) {
+                        if (response.code() == 200) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Pomyślnie zarejestrowano. Możesz się teraz zalogować.",
+                                Toast.LENGTH_LONG
+                            ).show()
 
                             val i = Intent(applicationContext, LoginActivity::class.java)
                             applicationContext.startActivity(i)
-                            }
-                        else
-                            Toast.makeText(applicationContext, "Rejestracja nie powiodła się. Upewnij się, że wprowadziłeś poprawne dane oraz czy nie posiadasz już konta zarejestrowanego na podany email", Toast.LENGTH_LONG).show()
+                        } else
+                            Toast.makeText(
+                                applicationContext,
+                                "Rejestracja nie powiodła się. Upewnij się, że wprowadziłeś poprawne dane oraz czy nie posiadasz już konta zarejestrowanego na podany email",
+                                Toast.LENGTH_LONG
+                            ).show()
 
                     }
 
                 })
-
-
 
 
         }

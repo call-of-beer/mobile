@@ -1,7 +1,6 @@
 package call.ofbeer.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +8,13 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import call.ofbeer.R
-import call.ofbeer.adapters.BeerAdapter
-import call.ofbeer.api.*
+import call.ofbeer.api.BeerResponse
+import call.ofbeer.api.RetrofitClient
+import call.ofbeer.api.SessionManager
+import call.ofbeer.api.TastingResponse
 import call.ofbeer.requests.CreateTastingRequest
-import kotlinx.android.synthetic.main.fragment_beer_list.*
 import kotlinx.android.synthetic.main.fragment_tasting_choose_beers.*
 import retrofit2.Call
 import retrofit2.Response
@@ -22,14 +23,9 @@ class TastingChooseBeersFragment : Fragment() {
 
     lateinit var session: SessionManager
     private var inputBeer: Spinner? = null
-    private var _idsBeer: ArrayList<Int> = ArrayList<Int>()
+    private var _idsBeer: ArrayList<Int> = ArrayList()
     private var beerPosition = 0
-    private var _namesBeer: ArrayList<String> = ArrayList<String>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private var _namesBeer: ArrayList<String> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,17 +64,25 @@ class TastingChooseBeersFragment : Fragment() {
             }
         }
 
-        createBeer.setOnClickListener{
+        createBeer.setOnClickListener {
             val fragmentTransaction = fragmentManager?.beginTransaction()
             fragmentTransaction?.replace(R.id.fragmentTasting, BeerAddFragment())
-            ?.addToBackStack(null)
-            ?.commit()
+                ?.addToBackStack(null)
+                ?.commit()
         }
 
-        createTastingBtn.setOnClickListener{
+        createTastingBtn.setOnClickListener {
 
-            RetrofitClient.instance.createTasting(CreateTastingRequest(session.tastingName!!, session.tastingDescription!!, session.userID, session.goupID, session.beerId), session.goupID, session.beerId, session.TOKEN)
-                .enqueue(object : retrofit2.Callback<TastingResponse>{
+            RetrofitClient.instance.createTasting(
+                CreateTastingRequest(
+                    session.tastingName!!,
+                    session.tastingDescription!!,
+                    session.userID,
+                    session.goupID,
+                    session.beerId
+                ), session.goupID, session.beerId, session.TOKEN
+            )
+                .enqueue(object : retrofit2.Callback<TastingResponse> {
                     override fun onFailure(call: Call<TastingResponse>, t: Throwable) {
                         Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                     }
@@ -87,14 +91,17 @@ class TastingChooseBeersFragment : Fragment() {
                         call: Call<TastingResponse>,
                         response: Response<TastingResponse>
                     ) {
-                        if(response.code()==200){
+                        if (response.code() == 200) {
                             session.gettastingId(response.body()!!.result.id)
 
 
                             val fragmentTransaction = fragmentManager?.beginTransaction()
-                            fragmentTransaction?.replace(R.id.fragmentTasting, TastingCreateFragment())
-                            ?.addToBackStack(null)
-                            ?.commit()
+                            fragmentTransaction?.replace(
+                                R.id.fragmentTasting,
+                                TastingCreateFragment()
+                            )
+                                ?.addToBackStack(null)
+                                ?.commit()
                         }
                     }
 
@@ -102,7 +109,7 @@ class TastingChooseBeersFragment : Fragment() {
         }
     }
 
-    private fun fetchBeer(){
+    private fun fetchBeer() {
 
         session = SessionManager(requireContext())
 
@@ -112,15 +119,17 @@ class TastingChooseBeersFragment : Fragment() {
                     Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                 }
 
-                override fun onResponse(call: Call<BeerResponse>, response: Response<BeerResponse>) {
+                override fun onResponse(
+                    call: Call<BeerResponse>,
+                    response: Response<BeerResponse>
+                ) {
                     if (response.code() == 200) {
 
-                        if(response.body()!=null){
+                        if (response.body() != null) {
 
                             val responseList = response.body()?.result!!
-                            val item = arrayOfNulls<String>(responseList!!.size)
-                            for(i in responseList.indices)
-                            {
+                            val item = arrayOfNulls<String>(responseList.size)
+                            for (i in responseList.indices) {
                                 item[i] = responseList[i].name
                                 var id = responseList[i].id
                                 _idsBeer.add(id)
@@ -128,10 +137,13 @@ class TastingChooseBeersFragment : Fragment() {
                                 var name = responseList[i].name
                                 _namesBeer.add(name)
                             }
-                            val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, item)
+                            val arrayAdapter = ArrayAdapter(
+                                requireContext(),
+                                android.R.layout.simple_spinner_item,
+                                item
+                            )
                             inputBeer?.adapter = arrayAdapter
                         }
-
 
 
                     }

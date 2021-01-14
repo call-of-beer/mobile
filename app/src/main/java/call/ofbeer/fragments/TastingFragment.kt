@@ -1,20 +1,18 @@
 package call.ofbeer.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import call.ofbeer.R
 import call.ofbeer.adapters.GroupAdapter
-import call.ofbeer.adapters.TastingAdapter
 import call.ofbeer.api.GroupResponse
 import call.ofbeer.api.RetrofitClient
 import call.ofbeer.api.SessionManager
 import call.ofbeer.models.Group
-import call.ofbeer.models.Tasting
 import kotlinx.android.synthetic.main.fragment_groups.*
 import retrofit2.Call
 import retrofit2.Response
@@ -39,6 +37,7 @@ class TastingFragment : Fragment() {
         session = SessionManager(requireContext())
 
         session.getdifferentOption(1)
+        session.getfragmentRedirect(0)
 
         groupsList.layoutManager = LinearLayoutManager(requireContext())
 
@@ -46,16 +45,20 @@ class TastingFragment : Fragment() {
 
     }
 
-    private fun fetchGroups(){
+    private fun fetchGroups() {
 
         session = SessionManager(requireContext())
 
         RetrofitClient.instance.getGroups(session.TOKEN)
-            .enqueue(object : retrofit2.Callback<GroupResponse>{
+            .enqueue(object : retrofit2.Callback<GroupResponse> {
                 override fun onFailure(call: Call<GroupResponse>, t: Throwable) {
                     Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                 }
-                override fun onResponse(call: Call<GroupResponse>, response: Response<GroupResponse>) {
+
+                override fun onResponse(
+                    call: Call<GroupResponse>,
+                    response: Response<GroupResponse>
+                ) {
 
                     if (response.code() == 200) {
 

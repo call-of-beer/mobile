@@ -16,8 +16,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Dodaj trunki"
+            android:fontFamily="@font/hanaleifill"
             android:layout_marginTop="60dp"
-            android:textSize="32sp"
+            android:textSize="40sp"
             android:id="@+id/beersName"/>
 
 
@@ -33,13 +34,24 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:text="Dalej"
+            android:textSize="30sp"
+            android:fontFamily="@font/hanaleifill"
+            android:id="@+id/createTastingBtn"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/hanaleifill"
             android:text="Na liście nie ma piwa, które szukasz?"
-            android:layout_marginTop="40dp"
-            android:textSize="20sp"
+            android:layout_marginTop="100dp"
+            android:textSize="25sp"
             android:id="@+id/info"
             app:layout_constraintTop_toBottomOf="@+id/choose_beer"/>
 
@@ -49,15 +61,10 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:text="Dodaj nowe piwo"
+            android:textSize="25sp"
+            android:fontFamily="@font/hanaleifill"
             android:id="@+id/createBeer"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:text="Dalej"
-            android:id="@+id/createTastingBtn"/>
 
 
     </LinearLayout>

@@ -1,6 +1,5 @@
 package call.ofbeer.fragments
 
-import android.R.attr.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +9,10 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import call.ofbeer.R
 import call.ofbeer.api.GroupResponse
 import call.ofbeer.api.RetrofitClient
 import call.ofbeer.api.SessionManager
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.createGroup
 import kotlinx.android.synthetic.main.fragment_tasting_choose_group.*
 import retrofit2.Call
@@ -64,48 +61,54 @@ class TastingChooseGroupFragment : Fragment() {
             }
         }
 
-        createGroup.setOnClickListener{
+        createGroup.setOnClickListener {
             fragmentTransaction?.replace(R.id.fragmentTasting, AddGroupFragment())
-            ?.addToBackStack(null)
-            ?.commit()
+                ?.addToBackStack(null)
+                ?.commit()
         }
 
-        chooseBeers.setOnClickListener{
+        chooseBeers.setOnClickListener {
             val fragmentTransaction = fragmentManager?.beginTransaction()
             fragmentTransaction?.replace(R.id.fragmentTasting, TastingChooseBeersFragment())
-            ?.addToBackStack(null)
-            ?.commit()
+                ?.addToBackStack(null)
+                ?.commit()
         }
 
     }
 
-    private fun fetchGroup(){
+    private fun fetchGroup() {
 
         session = SessionManager(requireContext())
 
         RetrofitClient.instance.getGroupWhereModerator(session.TOKEN)
-            .enqueue(object : retrofit2.Callback<GroupResponse>{
+            .enqueue(object : retrofit2.Callback<GroupResponse> {
                 override fun onFailure(call: Call<GroupResponse>, t: Throwable) {
                     Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                 }
-                override fun onResponse(call: Call<GroupResponse>, response: Response<GroupResponse>) {
+
+                override fun onResponse(
+                    call: Call<GroupResponse>,
+                    response: Response<GroupResponse>
+                ) {
 
                     if (response.code() == 200) {
 
-                        if(response.body()!=null){
+                        if (response.body() != null) {
 
                             val responseList = response.body()?.result!!
-                            val item = arrayOfNulls<String>(responseList!!.size)
-                            for(i in responseList.indices)
-                            {
+                            val item = arrayOfNulls<String>(responseList.size)
+                            for (i in responseList.indices) {
                                 item[i] = responseList[i].name
                                 var id = responseList[i].id
                                 _idsGroup.add(id)
                             }
-                            val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, item)
+                            val arrayAdapter = ArrayAdapter(
+                                requireContext(),
+                                android.R.layout.simple_spinner_item,
+                                item
+                            )
                             inputGroup?.adapter = arrayAdapter
                         }
-
 
 
                     }

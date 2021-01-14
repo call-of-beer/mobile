@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:windowBackground">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#ffffff">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
     <Button
@@ -13,24 +23,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Rozpocznij degustację"
-        android:textSize="20sp"
+        android:fontFamily="@font/hanaleifill"
+        android:textSize="25sp"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:background="#FFCC99"
+        android:layout_gravity="center"/>
 
     <Button
         android:id="@+id/leaveGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Opuść grupę"
+        android:fontFamily="@font/hanaleifill"
         android:textSize="20sp"
+        android:backgroundTint="#FF3333"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/users"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:layout_gravity="center"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,14 +54,17 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/startTasting"
         android:layout_marginTop="30dp"
-        android:id="@+id/users">
+        android:id="@+id/users"
+        android:layout_gravity="center">
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Członkowie grupy"
-            android:textSize="20sp"
+            android:fontFamily="@font/hanaleifill"
+            android:textSize="25sp"
+            android:layout_marginLeft="20dp"
             tools:layout_editor_absoluteX="65dp"
             tools:layout_editor_absoluteY="84dp" />
 
@@ -56,10 +75,11 @@
             android:layout_marginTop="20dp"
             app:layoutManager="LinearLayoutManager"
             tools:context=".fragments.GroupSeeDetailsFragment"
-            tools:listitem="@layout/fragment_users_in_group_item"/>
-
+            tools:listitem="@layout/fragment_users_in_group_item" />
 
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

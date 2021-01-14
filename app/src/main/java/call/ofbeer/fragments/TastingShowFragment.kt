@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import call.ofbeer.R
@@ -40,6 +41,7 @@ class TastingShowFragment : Fragment() {
         tastingList.layoutManager = LinearLayoutManager(requireContext())
 
         session = SessionManager(requireContext())
+        val fragmentTransaction = fragmentManager?.beginTransaction()
 
         session.getfragmentRedirect(0)
         session.getdifferentOption(0)
@@ -47,23 +49,42 @@ class TastingShowFragment : Fragment() {
         fetchTasting()
 
 
-        startTastng.setOnClickListener{
+        startTastng.setOnClickListener {
             val intent = Intent(activity, TastingActivity::class.java)
             startActivity(intent)
         }
+
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+
+                    if (session.fragmentRedirect == 0) {
+                        fragmentTransaction?.replace(R.id.nav_host_fragment,TastingFragment())
+                            ?.addToBackStack(null)
+                            ?.commit()
+                    }
+                    if (session.fragmentRedirect == 1) {
+                        fragmentTransaction?.replace(R.id.fragmentTasting,TastingFragment())
+                            ?.addToBackStack(null)
+                            ?.commit()
+
+                    }
+                }
+            })
     }
 
-    private fun fetchTasting(){
+    private fun fetchTasting() {
 
         session = SessionManager(requireContext())
 
         RetrofitClient.instance.getTastingOfGroup(session.goupID, session.TOKEN)
-            .enqueue(object : retrofit2.Callback<TastingGetResponse>{
+            .enqueue(object : retrofit2.Callback<TastingGetResponse> {
                 override fun onFailure(call: Call<TastingGetResponse>, t: Throwable) {
                     Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                 }
 
-                override fun onResponse(call: Call<TastingGetResponse>, response: Response<TastingGetResponse>
+                override fun onResponse(
+                    call: Call<TastingGetResponse>, response: Response<TastingGetResponse>
                 ) {
                     if (response.body() == null) {
                         Toast.makeText(

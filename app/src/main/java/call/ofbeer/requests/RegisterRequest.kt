@@ -2,7 +2,7 @@ package call.ofbeer.requests
 
 import com.google.gson.annotations.SerializedName
 
-data class RegisterRequest (
+data class RegisterRequest(
 
 
     val email: String,

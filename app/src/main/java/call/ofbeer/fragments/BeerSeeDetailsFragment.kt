@@ -9,7 +9,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import call.ofbeer.R
 import call.ofbeer.api.SessionManager
-import kotlinx.android.synthetic.main.fragment_add_user.*
 import kotlinx.android.synthetic.main.fragment_tasting_details.*
 
 class BeerSeeDetailsFragment : Fragment() {
@@ -44,13 +43,13 @@ class BeerSeeDetailsFragment : Fragment() {
 
 
         requireActivity().onBackPressedDispatcher
-            .addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
 
                     val fragmentTransaction = fragmentManager?.beginTransaction()
                     fragmentTransaction?.replace(R.id.nav_host_fragment, BeerFragment())
-                    ?.addToBackStack(null)
-                    ?.commit()
+                        ?.addToBackStack(null)
+                        ?.commit()
                 }
             })
 

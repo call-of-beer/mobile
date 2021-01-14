@@ -39,9 +39,8 @@
                 android:layout_width="50dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/ic_baseline_remove_circle_outline_24"
-                android:text="See"
-                android:textSize="10sp"
+                android:backgroundTint="#FF3333"
+                android:drawableStart="@drawable/ic_baseline_remove_circle_outline_24"
                 android:visibility="gone"/>
 
         </LinearLayout>
@@ -67,13 +66,15 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
-                        android:textSize="18sp"/>
+                        android:fontFamily="@font/hanaleifill"
+                        android:textSize="20sp"/>
                     <TextView
                         android:id="@+id/add_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
+                        android:fontFamily="@font/hanaleifill"
                         android:textSize="18sp"/>
                 </LinearLayout>
                 <TextView
@@ -82,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
+                    android:fontFamily="@font/hanaleifill"
                     android:textSize="18sp"/>
 
 

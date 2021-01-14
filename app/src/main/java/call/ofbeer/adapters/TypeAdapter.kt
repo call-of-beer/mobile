@@ -25,10 +25,10 @@ class TypeAdapter(var context: Context, var types: List<Type> = arrayListOf()) :
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bindType(type: Type){
+        fun bindType(type: Type) {
 
             itemView.main_info.text = type.name
 
         }
-}
     }
+}

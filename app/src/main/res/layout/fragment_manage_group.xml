@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:windowBackground">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#ffffff">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
     <Button
@@ -13,23 +23,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dodaj użytkownika"
-        android:textSize="20sp"
+        android:fontFamily="@font/hanaleifill"
+        android:textSize="25sp"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:layout_gravity="center"/>
 
     <Button
         android:id="@+id/tastingHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Historia degustacji"
-        android:textSize="20sp"
+        android:fontFamily="@font/hanaleifill"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addUser"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:layout_gravity="center"/>
 
 
     <LinearLayout
@@ -37,7 +51,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/tastingHistory"
-        android:id="@+id/list">
+        android:id="@+id/list"
+        android:layout_gravity="center">
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -58,21 +73,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Rozpocznij degustację"
-        android:textSize="20sp"
+        android:fontFamily="@font/hanaleifill"
+        android:textSize="25sp"
+        android:background="#FFCC99"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:layout_gravity="center"/>
 
     <Button
         android:id="@+id/deleteGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Usuń grupę"
-        android:textSize="20sp"
+        android:fontFamily="@font/hanaleifill"
+        android:textSize="25sp"
+        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startTastingNow"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:backgroundTint="#FF3333"
+        android:layout_gravity="center"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

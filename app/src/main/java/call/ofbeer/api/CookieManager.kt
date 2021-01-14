@@ -3,7 +3,7 @@ package call.ofbeer.api
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class CookieManager(): Interceptor {
+class CookieManager : Interceptor {
 
     companion object {
         const val COOKIE_KEY = "Cookie"

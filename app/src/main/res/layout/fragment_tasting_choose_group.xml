@@ -16,8 +16,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Wybierz grupę"
+        android:fontFamily="@font/hanaleifill"
         android:layout_marginTop="60dp"
-        android:textSize="32sp"
+        android:textSize="40sp"
         android:id="@+id/name"/>
 
 
@@ -44,6 +45,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:text="Dalej"
+        android:textSize="30sp"
+        android:fontFamily="@font/hanaleifill"
         android:id="@+id/chooseBeers"/>
 
     <Button
@@ -51,7 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
+        android:textSize="20sp"
         android:text="Stwórz nową grupę"
+        android:fontFamily="@font/hanaleifill"
         android:id="@+id/createGroup"/>
 </LinearLayout>
 

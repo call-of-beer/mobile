@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import call.ofbeer.R
@@ -37,6 +38,7 @@ class GroupFragment : Fragment() {
 
         session = SessionManager(requireContext())
         val fragmentTransaction = fragmentManager?.beginTransaction()
+        (activity as? AppCompatActivity)?.supportActionBar?.title = "Grupy"
 
         session.getfragmentRedirect(0)
 
@@ -44,32 +46,35 @@ class GroupFragment : Fragment() {
 
         fetchGroups()
 
-        addGroup.setOnClickListener{
+        addGroup.setOnClickListener {
             fragmentTransaction?.replace(R.id.nav_host_fragment, AddGroupFragment())
-            ?.addToBackStack(null)
-            ?.commit()
+                ?.addToBackStack(null)
+                ?.commit()
 
         }
 
-        groupToManage.setOnClickListener{
+        groupToManage.setOnClickListener {
             fragmentTransaction?.replace(R.id.nav_host_fragment, GroupToManageFragment())
-            ?.addToBackStack(null)
-            ?.commit()
+                ?.addToBackStack(null)
+                ?.commit()
         }
-
 
 
     }
 
-    private fun fetchGroups(){
+    private fun fetchGroups() {
         session = SessionManager(requireContext())
 
         RetrofitClient.instance.getGroups(session.TOKEN)
-            .enqueue(object : retrofit2.Callback<GroupResponse>{
+            .enqueue(object : retrofit2.Callback<GroupResponse> {
                 override fun onFailure(call: Call<GroupResponse>, t: Throwable) {
                     Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                 }
-                override fun onResponse(call: Call<GroupResponse>, response: Response<GroupResponse>) {
+
+                override fun onResponse(
+                    call: Call<GroupResponse>,
+                    response: Response<GroupResponse>
+                ) {
 
                     if (response.code() == 200) {
 
@@ -92,7 +97,6 @@ class GroupFragment : Fragment() {
 
 
     }
-
 
 
 }

@@ -49,30 +49,32 @@ class GroupToManageFragment : Fragment() {
         fetchGroups()
 
         requireActivity().onBackPressedDispatcher
-            .addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
 
                     val fragmentTransaction = fragmentManager?.beginTransaction()
                     fragmentTransaction?.replace(R.id.nav_host_fragment, GroupFragment())
-                    ?.addToBackStack(null)
-                    ?.commit()
+                        ?.addToBackStack(null)
+                        ?.commit()
                 }
             })
 
 
-
-
     }
 
-    private fun fetchGroups(){
+    private fun fetchGroups() {
         session = SessionManager(requireContext())
 
         RetrofitClient.instance.getGroupWhereModerator(session.TOKEN)
-            .enqueue(object : retrofit2.Callback<GroupResponse>{
+            .enqueue(object : retrofit2.Callback<GroupResponse> {
                 override fun onFailure(call: Call<GroupResponse>, t: Throwable) {
                     Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                 }
-                override fun onResponse(call: Call<GroupResponse>, response: Response<GroupResponse>) {
+
+                override fun onResponse(
+                    call: Call<GroupResponse>,
+                    response: Response<GroupResponse>
+                ) {
 
                     if (response.code() == 200) {
 
@@ -95,4 +97,4 @@ class GroupToManageFragment : Fragment() {
 
     }
 
-    }
+}

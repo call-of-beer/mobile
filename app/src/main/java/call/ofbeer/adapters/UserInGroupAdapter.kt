@@ -83,17 +83,20 @@ class UserInGroupAdapter(var context: Context, var users: List<User> = arrayList
                                         "Użytkownik usunięty z grupy",
                                         Toast.LENGTH_SHORT
                                     ).show()
-                                    val fragmentTransaction = fragmentManager?.beginTransaction()
-                                    fragmentTransaction?.replace(R.id.nav_host_fragment, ManageGroupFragment())
-                                    fragmentTransaction?.addToBackStack(null)
-                                    fragmentTransaction?.commit()
+                                    val fragmentTransaction = fragmentManager.beginTransaction()
+                                    fragmentTransaction.replace(
+                                        R.id.nav_host_fragment,
+                                        ManageGroupFragment()
+                                    )
+                                        .addToBackStack(null)
+                                        .commit()
                                     dialog.dismiss()
                                 }
 
                             })
 
                     }
-                    .setNegativeButton("Dismiss") { dialog, id ->
+                    .setNegativeButton("Anuluj") { dialog, id ->
                         dialog.dismiss()
                     }
 
@@ -102,8 +105,6 @@ class UserInGroupAdapter(var context: Context, var users: List<User> = arrayList
 
                 alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED)
                 alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GREEN)
-
-
 
 
             }

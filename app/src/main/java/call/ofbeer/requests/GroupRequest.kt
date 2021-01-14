@@ -1,5 +1,5 @@
 package call.ofbeer.requests
 
-data class GroupRequest (
+data class GroupRequest(
     val name: String
 )

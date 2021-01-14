@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import call.ofbeer.R
@@ -18,7 +19,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 
-class SearchFragment: Fragment(){
+class SearchFragment : Fragment() {
 
     private var beer = listOf<Beer>()
     lateinit var session: SessionManager
@@ -35,13 +36,24 @@ class SearchFragment: Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        val fragmentTransaction = fragmentManager?.beginTransaction()
+
         listOfBeersSearch.layoutManager = LinearLayoutManager(requireContext())
 
         fetchBeers()
 
-    }
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                        fragmentTransaction?.replace(R.id.nav_host_fragment, BeerFragment())
+                            ?.addToBackStack(null)
+                            ?.commit()
 
-    private fun fetchBeers(){
+            }})
+
+
+    }
+    private fun fetchBeers() {
 
         session = SessionManager(requireContext())
 

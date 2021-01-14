@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
 import call.ofbeer.R
 import call.ofbeer.api.RetrofitClient
 import call.ofbeer.api.SessionManager
@@ -75,8 +74,12 @@ class AccountEditFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            RetrofitClient.instance.updateUser(session.TOKEN, session.userID, UserRequest(name,surname,email))
-                .enqueue(object : retrofit2.Callback<UserResponse>{
+            RetrofitClient.instance.updateUser(
+                session.TOKEN,
+                session.userID,
+                UserRequest(name, surname, email)
+            )
+                .enqueue(object : retrofit2.Callback<UserResponse> {
                     override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                         Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
                     }
@@ -85,11 +88,18 @@ class AccountEditFragment : Fragment() {
                         call: Call<UserResponse>,
                         response: Response<UserResponse>
                     ) {
-                        if(response.code()==200){
-                            Toast.makeText(requireContext(), "Twoje konto zostało uaktualnione!", Toast.LENGTH_SHORT).show()
-                        }
-                        else
-                            Toast.makeText(requireContext(), response.code().toString(), Toast.LENGTH_SHORT).show()
+                        if (response.code() == 200) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Twoje konto zostało uaktualnione!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else
+                            Toast.makeText(
+                                requireContext(),
+                                response.code().toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
                     }
                 })
         }

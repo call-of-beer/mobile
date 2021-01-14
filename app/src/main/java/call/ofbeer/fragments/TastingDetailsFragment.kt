@@ -2,22 +2,16 @@ package call.ofbeer.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import call.ofbeer.R
 import call.ofbeer.activities.MainActivity
 import call.ofbeer.api.SessionManager
-import kotlinx.android.synthetic.main.fragment_rate_add.*
 import kotlinx.android.synthetic.main.fragment_tasting_details.*
-import kotlinx.android.synthetic.main.fragment_tasting_details.aroma_rate
-import kotlinx.android.synthetic.main.fragment_tasting_details.bitterness_rate
-import kotlinx.android.synthetic.main.fragment_tasting_details.color_rate
-import kotlinx.android.synthetic.main.fragment_tasting_details.taste_rate
-import kotlinx.android.synthetic.main.fragment_tasting_details.texture_rate
 
 
 class TastingDetailsFragment : Fragment() {
@@ -36,6 +30,7 @@ class TastingDetailsFragment : Fragment() {
 
         session = SessionManager(requireContext())
         val fragmentTransaction = fragmentManager?.beginTransaction()
+        (activity as? AppCompatActivity)?.supportActionBar?.title = session.beerName
 
         beer_name.text = session.beerName
 
@@ -47,33 +42,33 @@ class TastingDetailsFragment : Fragment() {
         alc_volume.text = session.beerAlcVolume
 
 
-        if(session.fragmentRedirect==1){
+        if (session.fragmentRedirect == 1) {
             rate_beer.visibility = View.GONE
         }
-        if(session.fragmentRedirect==0) {
+        if (session.fragmentRedirect == 0) {
             rate_beer.visibility = View.VISIBLE
         }
 
-        rate_beer.setOnClickListener{
-            if(session.fragmentRedirect==0) {
+        rate_beer.setOnClickListener {
+            if (session.fragmentRedirect == 0) {
                 fragmentTransaction?.replace(R.id.nav_host_fragment, RateAddFragment())
-                ?.addToBackStack(null)
-                ?.commit()
+                    ?.addToBackStack(null)
+                    ?.commit()
             }
 
         }
 
 
         requireActivity().onBackPressedDispatcher
-            .addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
 
-                    if(session.fragmentRedirect==0) {
+                    if (session.fragmentRedirect == 0) {
                         fragmentTransaction?.replace(R.id.nav_host_fragment, TastingFragment())
-                        ?.addToBackStack(null)
-                        ?.commit()
+                            ?.addToBackStack(null)
+                            ?.commit()
                     }
-                    if(session.fragmentRedirect==1){
+                    if (session.fragmentRedirect == 1) {
                         val intent = Intent(activity, MainActivity::class.java)
                         startActivity(intent)
 

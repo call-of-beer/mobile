@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@android:color/white">
+    android:background="#ffffff">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
 
@@ -14,10 +23,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dodaj piwo"
+        android:fontFamily="@font/hanaleifill"
         android:layout_gravity="center"
+        android:textColor="#000000"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="50dp"
-        android:textSize="32sp"
+        android:layout_marginBottom="30dp"
+        android:textSize="40sp"
         android:id="@+id/name"/>
 
         <LinearLayout
@@ -36,6 +47,7 @@
                     android:layout_height="match_parent"
                     android:textSize="24sp"
                     android:text="Nazwa"
+                    android:fontFamily="@font/hanaleifill"
                     android:layout_gravity="start"
                     android:layout_marginRight="25dp"
                     android:gravity="center" />
@@ -61,6 +73,7 @@
                     android:layout_height="match_parent"
                     android:textSize="24sp"
                     android:text="Ilość alkoholu"
+                    android:fontFamily="@font/hanaleifill"
                     android:layout_gravity="start"
                     android:layout_marginRight="25dp"
                     android:gravity="center"/>
@@ -84,6 +97,7 @@
                     android:layout_height="match_parent"
                     android:textSize="24sp"
                     android:text="Kraj"
+                    android:fontFamily="@font/hanaleifill"
                     android:layout_gravity="start"
                     android:layout_marginRight="25dp"
                     android:gravity="center"/>
@@ -109,6 +123,7 @@
                     android:layout_height="match_parent"
                     android:textSize="24sp"
                     android:text="Typ piwa"
+                    android:fontFamily="@font/hanaleifill"
                     android:layout_gravity="start"
                     android:layout_marginRight="25dp"
                     android:gravity="center"/>
@@ -135,6 +150,7 @@
                     android:layout_height="match_parent"
                     android:textSize="24sp"
                     android:text="Opis"
+                    android:fontFamily="@font/hanaleifill"
                     android:layout_gravity="start"
                     android:layout_marginRight="25dp"
                     android:gravity="center"/>
@@ -154,13 +170,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="40dp"
                 android:text="Dodaj"
-                android:textSize="20sp"
+                android:background="#FFCC99"
+                android:fontFamily="@font/hanaleifill"
+                android:textSize="30sp"
                 android:id="@+id/beer_send_data"/>
 
 
         </LinearLayout>
-
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -29,10 +29,10 @@ class GroupAdapter(var context: Context, var groups: List<Group> = arrayListOf()
     override fun getItemCount(): Int = groups.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(isVisible){
+        if (isVisible) {
             holder.btn_see.visibility = View.GONE
             holder.btn_edit.visibility = View.VISIBLE
-        }else{
+        } else {
             holder.btn_see.visibility = View.VISIBLE
             holder.btn_edit.visibility = View.GONE
         }
@@ -41,29 +41,28 @@ class GroupAdapter(var context: Context, var groups: List<Group> = arrayListOf()
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         lateinit var session: SessionManager
-        var btn_see = view.findViewById<Button>(R.id.btn_see)
-        var btn_edit = view.findViewById<Button>(R.id.btn_edit)
+        var btn_see: Button = view.findViewById<Button>(R.id.btn_see)
+        var btn_edit: Button = view.findViewById<Button>(R.id.btn_edit)
         var context: Context = itemView.context
 
         var fragmentManager =
             (view.context as FragmentActivity).supportFragmentManager //to handle context
 
 
-        fun bindGroup(group: Group){
+        fun bindGroup(group: Group) {
 
             session = SessionManager(context)
-            val fragmentTransaction = fragmentManager?.beginTransaction()
+            val fragmentTransaction = fragmentManager.beginTransaction()
 
-            btn_see.setOnClickListener{
-                if(session.differentOption==1)
-                {
+            btn_see.setOnClickListener {
+                if (session.differentOption == 1) {
                     fragmentTransaction.replace(R.id.nav_host_fragment, TastingShowFragment())
                         .addToBackStack(null)
                         .commit()
                     session.getIdOfGroup(group.id)
                     session.getNameOfGroup(group.name)
 
-                }else {
+                } else {
                     fragmentTransaction.replace(R.id.nav_host_fragment, GroupSeeDetailsFragment())
                         .addToBackStack(null)
                         .commit()
@@ -72,11 +71,10 @@ class GroupAdapter(var context: Context, var groups: List<Group> = arrayListOf()
                 }
             }
 
-            btn_edit.setOnClickListener{
-                val fragmentTransaction = fragmentManager?.beginTransaction()
-                fragmentTransaction?.replace(R.id.nav_host_fragment, ManageGroupFragment())
-                fragmentTransaction?.addToBackStack(null)
-                fragmentTransaction?.commit()
+            btn_edit.setOnClickListener {
+                fragmentTransaction.replace(R.id.nav_host_fragment, ManageGroupFragment())
+                    .addToBackStack(null)
+                    .commit()
                 session.getIdOfGroup(group.id)
                 session.getNameOfGroup(group.name)
 
