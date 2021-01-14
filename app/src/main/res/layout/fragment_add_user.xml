@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:singleLine="true"
-            android:text="Podaj email użytkownika"
+            android:text="Podaj email"
             android:fontFamily="@font/hanaleifill"
             android:textAlignment="center"
             android:textSize="40sp"

@@ -23,13 +23,14 @@ class SessionManager {
             return "Bearer " + pref.getString(
                 "TOKEN",
                 null
-            ) //jak było TOKEN to nie działało, ale nie przypominam sobie, bym coś zmieniała... czarna magia
+            )
         }
 
-    val ExpiredDate: Long
-        get() {
-            return pref.getLong("ExpiredDate", 0)
-        }
+    fun createLoginSession(token: String) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putString("TOKEN", token)
+        editor.commit()
+    }
 
 
     companion object {
@@ -48,12 +49,14 @@ class SessionManager {
         }
     }
 
-    fun createLoginSession(token: String) {
-        editor.putBoolean(IS_LOGIN, true)
-        editor.putString("TOKEN", token)
-        editor.commit()
-    }
 
+
+
+
+    val ExpiredDate: Long
+        get() {
+            return pref.getLong("ExpiredDate", 0)
+        }
 
     val userID: Int
         get() {

@@ -145,4 +145,10 @@ interface Api {
         @Path("id") id: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<SuccesfulResponse>
+
+    @GET("api/rating/avg/{id}")
+    fun getAvgForTasting(
+        @Path("id") id: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<RaitingsResponse>
 }

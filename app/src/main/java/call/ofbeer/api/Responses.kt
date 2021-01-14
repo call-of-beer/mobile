@@ -84,4 +84,13 @@ data class TastingResponse(
     val result: Tasting
 )
 
+data class RaitingsResponse(
+val tasting: Tasting,
+val avgAroma: Float,
+val avgTaste: Float,
+val avgColor: Float,
+val avgBitterness: Float,
+val avgTexture: Float
+)
+
 data class SuccesfulResponse(val message: String)

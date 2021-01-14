@@ -19,7 +19,7 @@
 <EditText
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="200dp"
+    android:layout_marginTop="230dp"
     android:layout_marginLeft="40dp"
     android:layout_marginRight="40dp"
     android:textAlignment="center"
@@ -29,7 +29,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="300dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:textAlignment="center"
@@ -40,8 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="20dp"
         android:text="Dalej"
         android:fontFamily="@font/hanaleifill"
         android:textSize="30sp"

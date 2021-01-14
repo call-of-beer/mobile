@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#FF3333"
                     android:text="Usuń konto"
-                    android:layout_marginTop="200dp"
+                    android:layout_marginTop="150dp"
                     android:fontFamily="@font/hanaleifill"
                     android:textSize="22sp" />
             </LinearLayout>
